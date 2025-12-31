@@ -1,0 +1,132 @@
+<h1 class="text-4xl font-semibold">Documentos de Alcance</h1>
+
+<div class="mt-6">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-8">
+        <section>
+            <h3 class="text-xl mb-3 font-semibold text-color-primary">Origen</h3>
+            <div class="p-6 flex flex-col gap-5 bg-white border-t-6 border-blue-800">
+                <p-floatlabel class="w-full" variant="on">
+                    <p-select 
+                        formControlName="tipo"
+                        inputId="on_label"
+                        [options]="tipos" 
+                        optionLabel="name"
+                        class="w-full"
+                        [emptyMessage]="'No se encontraron tipos'" />
+                    <label for="on_label">Tipo</label>
+                </p-floatlabel>
+    
+                <div 
+                    class="relative w-full flex items-center justify-between px-12 transition-all duration-300"
+                    [class.bg-indigo-100]="!isDragging()"
+                    [class.bg-indigo-200]="isDragging()"
+                    [class.scale-[0.99]]="isDragging()"
+                    class="bg-[#E2E2F0] border-4 border-dashed border-[#2E2E85]"
+                    (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)"
+                    (drop)="onDrop($event)"
+                    >
+    
+                    <input 
+                        type="file" 
+                        #fileInput 
+                        class="hidden" 
+                        accept=".sql"
+                        formControlName="archivo"
+                        (change)="onFileSelected($event)"
+                    >
+    
+                    <div class="grid grid-cols-2 py-8">
+    
+                        <div class="flex flex-col gap-1 pointer-events-none select-none">
+                            <span class="text-[#2E2E85] text-md font-semibold text-center">
+                                Arrastre y suelte aquí
+                                <br />
+                                O haga clic para explorar.
+                            </span>
+                        </div>
+        
+                        <div class="flex flex-col items-center gap-2">
+                            <button 
+                            (click)="fileInput.click()"
+                            class="group px-5 py-3 text-sm rounded-full border-[3px] border-[#2E2E85] bg-[#D8D8EA] text-[#2E2E85] font-bold hover:bg-[#C8C8DE] active:scale-95 transition-all duration-200"
+                            >
+                                Seleccionar archivo
+                            </button>
+                            
+                            <span class="text-[#2E2E85] font-bold text-xs tracking-wide">
+                            Soportado: .sql
+                            </span>
+                        </div>
+                    </div>
+                </div>
+    
+                @if (fileName()) {
+                    <div>
+                        <h3 class="text-gray-500 my-0 py-0">Scripts DDL</h3>
+                        <div class="flex w-full items-center">
+                            <span class="text-gray-800 font-bold text-md w-full">
+                                {{ fileName()?.slice(0, 30) }}{{ fileName() && fileName()!.length > 30 ? '...' : '' }}                            
+                                <br />
+                                <span class="text-gray-500 font-normal text-sm">
+                                    ({{ fileSize() ? (fileSize() / 1024).toFixed(2) : '0.00' }} KB)
+                                </span>
+                            </span>
+                            <button (click)="fileName.set(null)" class="cursor-pointer bg-red-100 rounded-full w-10 h-10 flex justify-center items-center">
+                                <i 
+                                    class="pi pi-trash text-red-600 hover:text-red-800 text-xl"
+                                ></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+        <section>
+            <h3 class="text-xl mb-3 font-semibold text-gray-500">Contexto y Auditoria</h3>
+            <div class="p-6 bg-white border-t-6 border-gray-500">
+                <div class="flex flex-col gap-5">
+                    <p-floatlabel class="w-full" variant="on">
+                        <p-select 
+                            formControlName="tabla" 
+                            inputId="on_label" 
+                            [options]="tipos" 
+                            optionLabel="name" 
+                            class="w-full"
+                            [disabled]="!fileName() && !form.get('tipo')?.value"
+                            [emptyMessage]="'No se encontraron tablas'" />
+                        <label for="on_label">Tabla</label>
+                    </p-floatlabel>
+        
+                    <p-floatlabel variant="on">
+                        <textarea 
+                            formControlName="propiedades" 
+                            pTextarea 
+                            id="on_label" 
+                            rows="5" 
+                            cols="30" 
+                            style="resize: none" 
+                            class="h-full w-full"
+                            [readonly]="true"
+                            [placeholder]="'Aquí aparecerá las propiedades de la tabla seleccionada'"></textarea>
+                        <label for="on_label">Propiedades de la tabla seleccionada</label>
+                    </p-floatlabel>
+    
+                    <p-floatlabel variant="on">
+                        <input 
+                            formControlName="matricula"
+                            pInputText 
+                            id="on_label"
+                            autocomplete="off"
+                            class="w-full"
+                            [readonly]="!fileName() && !form.get('tipo')?.value" />
+                        <label for="on_label">Matrícula Data Steward</label>
+                    </p-floatlabel>
+                </div>
+            </div>
+            <button type="submit" [disabled]="form.invalid" class="btn-secondary float-right mt-4 cursor-pointer" style="border-radius: 1.2rem;">
+                Generar Documento
+            </button>
+        </section>
+    </form>
+</div>

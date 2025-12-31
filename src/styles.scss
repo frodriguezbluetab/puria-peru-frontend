@@ -1,1 +1,153 @@
+@import "tailwindcss";
+
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+/* all the brand's gradient colors */
+$azul-brand: #212492;
+$azul-brand-secondary: #31277e;
+$morado-brand: #542675;
+$naranja-brand: #e05206;
+$naranja-brand-secondary: #e73b28;
+
+/* Generics Colors */
+$white-color: #FFFFFF;
+$black-color: #1f222d;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Titillium Web', sans-serif !important;
+  background-color: #F5F6FA !important;
+  font-size: 16px;
+}
+
+.animation-in {
+  animation: fadeIn .5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  } to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Font: Titillium Web */
+.titillium-web-extralight {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.titillium-web-light {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.titillium-web-regular {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.titillium-web-semibold {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.titillium-web-bold {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.titillium-web-black {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.titillium-web-extralight-italic {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.titillium-web-light-italic {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.titillium-web-regular-italic {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.titillium-web-semibold-italic {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.titillium-web-bold-italic {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Título */
+h1 { 
+  // font-size: 18px !important; 
+  font-weight: bold;
+}
+
+/* Subtítulo */
+h2 { font-size: 16px !important; font-weight: 700; }
+
+/* Párrafo */
+p { font-size: 12px !important }
+
+.btn-primary {
+  @apply px-4 py-2 rounded-lg text-white hover:bg-blue-800 transition;
+  background: $azul-brand !important;
+  cursor: pointer;
+  border: transparent !important;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 rounded-lg text-white hover:bg-[$naranja-brand-secondary] transition;
+  border: transparent !important;
+  background: $naranja-brand !important;
+}
+
+.btn-secondary-ghost {
+  @apply px-4 py-2 rounded-lg border hover:text-white transition;
+  color: $naranja-brand !important;
+  border: transparent !important;
+  background: transparent !important;
+}
+
+.bg-secondary {
+  background-color: $naranja-brand !important;
+}
+
+
+.text-color-secondary {
+  color: $naranja-brand;
+}
+
+.text-color-primary {
+  color: $azul-brand;
+}
+ 
+.bg-brand-gradient {
+  background: linear-gradient(90deg, $azul-brand 0%, $morado-brand 50%, $naranja-brand 100%);
+}

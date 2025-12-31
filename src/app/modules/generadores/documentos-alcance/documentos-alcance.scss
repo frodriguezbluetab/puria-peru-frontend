@@ -1,0 +1,8 @@
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+[readonly] {
+    background-color: #E2E8F0 !important;
+}

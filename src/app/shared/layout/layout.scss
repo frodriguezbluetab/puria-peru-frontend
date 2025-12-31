@@ -1,0 +1,16 @@
+/* sidebar.component.css */
+:host {
+    display: flex;
+}
+
+/* Ocultar scrollbar estándar pero permitir scroll si el menú es muy alto */
+nav::-webkit-scrollbar {
+    width: 4px;
+}
+nav::-webkit-scrollbar-thumb {
+    background-color: #475569;
+    border-radius: 4px;
+}
+nav::-webkit-scrollbar-track {
+    background-color: transparent;
+}

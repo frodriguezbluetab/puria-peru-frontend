@@ -1,0 +1,82 @@
+<aside 
+    class="h-screen bg-white flex flex-col shadow-md transition-all duration-300 ease-in-out font-sans"
+    [ngClass]="{'w-[18rem]': isExpanded(), 'w-20': !isExpanded()}"
+>
+    <div class="flex flex-col items-center px-4 py-6 gap-4 transition-all duration-300">
+        
+        <div class="flex items-center justify-center overflow-hidden transition-all duration-300" 
+             [ngClass]="isExpanded() ? 'w-full h-16' : 'w-10 h-10'">
+            
+            <div *ngIf="isExpanded()" class="w-full flex items-center justify-center fade-in">
+                <img src="assets/logo.png" class="max-w-full max-h-16 object-contain" alt="Logo">
+            </div>
+
+            <div *ngIf="!isExpanded()" class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl fade-in shrink-0">
+                <img src="assets/Isotipo-logo.png" alt="Isotipo Logo">
+            </div>
+        </div>
+
+        <div class="w-full flex" [ngClass]="isExpanded() ? 'justify-end' : 'justify-center'">
+            <p-button 
+                [icon]="isExpanded() ? 'pi pi-angle-left' : 'pi pi-angle-right'" 
+                [rounded]="true" [text]="true" 
+                styleClass="text-slate-400 hover:text-slate-800 w-8 h-8"
+                (onClick)="toggleSidebar()">
+            </p-button>
+        </div>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-2 px-2">
+        @for (item of menuItems; track item.label) {            
+            <p-accordion [value]="item?.route" *ngIf="item?.children && isExpanded()" class="w-full">
+                <p-accordion-panel [value]="item?.route">
+                    
+                    <p-accordion-header class="p-0">
+                        <span class="flex items-center gap-3 transition-colors duration-200 w-full"
+                              [ngClass]="{
+                                  'text-orange-600 font-bold': isActive(item.route), 
+                                  'font-normal': !isActive(item.route),
+                                  'justify-center': !isExpanded()
+                              }">
+                             <i *ngIf="item.icon" [class]="item.icon" class="text-xl"></i>
+                             <span *ngIf="isExpanded()">{{ item.label }}</span>
+                        </span>
+                    </p-accordion-header>
+
+                    <p-accordion-content>
+                        <div class="flex flex-col gap-1 pl-0"> @for (child of item.children; track child.label) {
+                                
+                                <a [routerLink]="resolvePath(item.route, child.route)" 
+                                   pRipple
+                                   class="flex items-center gap-3 py-2 px-3 rounded-lg cursor-pointer transition-colors duration-200"
+                                   [ngClass]="!isExpanded() ? 'justify-center' : ''"> <span *ngIf="!isExpanded()" class="text-xs font-bold text-slate-400">
+                                        {{ child.label.charAt(0) }}
+                                    </span>
+
+                                    <span class="transition-all duration-200"
+                                          *ngIf="isExpanded()"
+                                          [ngClass]="{
+                                              'text-orange-600 font-bold': isActive(child.route),
+                                          }">
+                                        {{ child.label }}
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                    </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+
+            <a *ngIf="!item?.children && isExpanded()" 
+               [routerLink]="item?.route" 
+               pRipple
+               class="flex items-center px-3 py-3 gap-3 rounded-lg cursor-pointer transition-colors duration-200"
+               [ngClass]="[
+                   isActive(item.route) ? 'text-orange-600 font-bold' : '',
+                   !isExpanded() ? 'justify-center' : '' 
+               ]"> <i *ngIf="item?.icon" [class]="item?.icon" class="text-xl"></i>
+                <span *ngIf="isExpanded()">{{ item?.label }}</span>
+            </a>
+            }
+    </nav>
+</aside>
