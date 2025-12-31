@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Sidebar } from '../sidebar/sidebar';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { Popover } from 'primeng/popover';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-layout',
@@ -10,7 +14,11 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
-    Sidebar
+    Sidebar,
+    ButtonModule,
+    Popover,
+    InputGroup,
+    InputGroupAddonModule
   ]
 })
 export class Layout {
@@ -22,5 +30,9 @@ export class Layout {
         this.sidebarCollapsed = value;
       });
     }
+  }
+
+  logout() {
+    
   }
 }

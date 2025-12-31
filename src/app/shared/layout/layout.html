@@ -1,4 +1,40 @@
 <app-sidebar></app-sidebar>
 <section class="p-8 w-full">
+    <section class="flex justify-end">
+        <button class="bg-white px-3.5 py-3 cursor-pointer rounded-lg" (click)="op.toggle($event)">
+            <i class="pi pi-user text-white bg-orange-600 p-2 rounded-full"></i>
+        </button>
+    </section>
+    <p-popover #op>
+        <div class="flex flex-col gap-4 w-[16rem]">
+            <div class="flex items-center gap-3 px-2 py-2">
+                <div class="relative">
+                    <i class="pi pi-user text-white bg-orange-600 p-2 rounded-full"></i>
+                </div>
+                
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold">Usuario Usuario</span>
+                    <span class="text-xs text-gray-400">usuario@bluetab.net</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+            
+                <button class="cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-gray-700">
+                    <i class="pi pi-user text-gray-400"></i>
+                    <span>Ver perfil</span>
+                    </button>
+
+                <button class="cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-gray-700">
+                    <i class="pi pi-cog text-gray-400"></i>
+                    <span>Configuración de la cuenta</span>
+                </button>
+
+                <button (click)="logout()" class="cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-gray-700">
+                    <i class="pi pi-sign-out text-gray-400 transform rotate-180"></i> <span>Cerrar sesión</span>
+                </button>
+            </div>
+        </div>   
+    </p-popover>
     <router-outlet></router-outlet>
 </section>
